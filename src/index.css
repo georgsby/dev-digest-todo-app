@@ -1,0 +1,138 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@import "@fontsource-variable/bricolage-grotesque";
+@import "@fontsource-variable/instrument-sans";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+    --font-heading: 'Bricolage Grotesque Variable', sans-serif;
+    --font-sans: 'Instrument Sans Variable', sans-serif;
+    --color-hl-low: var(--hl-low);
+    --color-hl-medium: var(--hl-medium);
+    --color-hl-high: var(--hl-high);
+    --color-rule: var(--rule);
+    --color-ring: var(--ring);
+    --color-input: var(--input);
+    --color-border: var(--border);
+    --color-destructive: var(--destructive);
+    --color-accent-foreground: var(--accent-foreground);
+    --color-accent: var(--accent);
+    --color-muted-foreground: var(--muted-foreground);
+    --color-muted: var(--muted);
+    --color-secondary-foreground: var(--secondary-foreground);
+    --color-secondary: var(--secondary);
+    --color-primary-foreground: var(--primary-foreground);
+    --color-primary: var(--primary);
+    --color-popover-foreground: var(--popover-foreground);
+    --color-popover: var(--popover);
+    --color-card-foreground: var(--card-foreground);
+    --color-card: var(--card);
+    --color-foreground: var(--foreground);
+    --color-background: var(--background);
+    --radius-sm: calc(var(--radius) * 0.6);
+    --radius-md: calc(var(--radius) * 0.8);
+    --radius-lg: var(--radius);
+    --radius-xl: calc(var(--radius) * 1.4);
+    --radius-2xl: calc(var(--radius) * 1.8);
+    --radius-3xl: calc(var(--radius) * 2.2);
+    --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+/* Cool paper, navy ink, and three highlighters that double as priority colours. */
+:root {
+    --background: #eef1f5;
+    --foreground: #1c2433;
+    --card: #f9fafc;
+    --card-foreground: #1c2433;
+    --popover: #ffffff;
+    --popover-foreground: #1c2433;
+    --primary: #1c2433;
+    --primary-foreground: #f9fafc;
+    --secondary: #e2e7ee;
+    --secondary-foreground: #1c2433;
+    --muted: #e2e7ee;
+    --muted-foreground: #5a6575;
+    --accent: #e2e7ee;
+    --accent-foreground: #1c2433;
+    --destructive: #c4313b;
+    --border: #d5dce5;
+    --input: #c6cfdb;
+    --ring: #4f74d0;
+    --rule: #dfe5ed;
+    --radius: 0.75rem;
+
+    --hl-low: #f6e05e;
+    --hl-medium: #86e0c2;
+    --hl-high: #ff9cc2;
+    --hl-ink: #1c2433;
+}
+
+.dark {
+    --background: #131925;
+    --foreground: #e6eaf0;
+    --card: #1a2130;
+    --card-foreground: #e6eaf0;
+    --popover: #1f2737;
+    --popover-foreground: #e6eaf0;
+    --primary: #e6eaf0;
+    --primary-foreground: #131925;
+    --secondary: #263043;
+    --secondary-foreground: #e6eaf0;
+    --muted: #263043;
+    --muted-foreground: #9ba6b6;
+    --accent: #263043;
+    --accent-foreground: #e6eaf0;
+    --destructive: #f0737b;
+    --border: #2a3345;
+    --input: #39445a;
+    --ring: #7c9cf0;
+    --rule: #232c3c;
+
+    /* Same highlighters, slightly softened so they don't glare on dark paper. */
+    --hl-low: #e3cd4f;
+    --hl-medium: #6fcfae;
+    --hl-high: #f088b0;
+    --hl-ink: #131925;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+  }
+  button:not(:disabled), [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+  html {
+    @apply font-sans;
+  }
+}
+
+@layer components {
+  /* A marker stroke that sweeps across a finished task. --hl is set per item. */
+  .highlighter {
+    padding-inline: 0.2em;
+    margin-inline: -0.2em;
+    border-radius: 0.3em 0.15em 0.35em 0.2em;
+    background-image: linear-gradient(100deg, var(--hl) 0%, var(--hl) 96%, color-mix(in oklab, var(--hl) 60%, transparent) 100%);
+    background-repeat: no-repeat;
+    background-position: 0 55%;
+    background-size: 0% 78%;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+    transition: background-size 480ms cubic-bezier(0.65, 0, 0.35, 1), color 200ms ease;
+  }
+  .highlighter[data-done="true"] {
+    background-size: 100% 78%;
+    color: var(--hl-ink);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .highlighter {
+      transition: none;
+    }
+  }
+}
